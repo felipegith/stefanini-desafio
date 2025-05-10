@@ -149,4 +149,30 @@ public class ClientRepositoryTest
         Assert.Contains("Value cannot be null", exception.Message);
     }
 
+    [Fact]
+    public async Task Must_Found_Same_Cpf_On_Database()
+    {
+        _clientRepositoryMoq.Create(ClientFixture.ClientMoq);
+        await _unitOfWorkMoq.Commit();
+        var find = await _clientRepositoryMoq.FindByCpf(_clientMoq.Cpf);
+        
+        Assert.NotNull(find);
+        Assert.Equal(_clientMoq.Cpf, find.Cpf);
+    }
+
+    [Fact]
+    public async Task Dont_Must_Found_Same_Cpf_On_Database()
+    {
+        var options = new DbContextOptionsBuilder<DatabaseContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString()) 
+            .Options;
+
+        await using var context = new DatabaseContext(options);
+        var repository = new ClientRepository(context);
+
+        var result = await repository.FindByCpf(ClientFixture.Cpf);
+
+        Assert.Null(result);
+    }
+
 }

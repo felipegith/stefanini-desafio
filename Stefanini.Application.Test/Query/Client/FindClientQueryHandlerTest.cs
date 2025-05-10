@@ -36,7 +36,7 @@ public class FindClientQueryHandlerTest
     [Fact]
     public async Task Must_Return_The_Client_If_Exists_On_Dabase()
     {
-        var clientMoq = ClientFixture.ClientMoq;
+        var clientMoq = Domain.Entities.Client.Create(ClientFixture.Name, ClientFixture.BirthDate, ClientFixture.Cpf, ClientFixture.Email, ClientFixture.Naturality, ClientFixture.Nacionality, ClientFixture.Gender, ClientFixture.Address);
         _clienteRepositoryMoq.FindByIdAsync(Arg.Any<Guid>()).Returns(clientMoq);
         var result = await _query.Handle(Query, CancellationToken.None);
         
@@ -45,6 +45,6 @@ public class FindClientQueryHandlerTest
         Assert.Equal(result.Value.Name, clientMoq.Name);
         Assert.Equal(result.Value.Cpf, clientMoq.Cpf);
         Assert.Equal(result.Value.BirthDate, clientMoq.BirthDate);
-        
+        Assert.Equal(result.Value.CreatedAt, clientMoq.CreatedAt);
     }
 }

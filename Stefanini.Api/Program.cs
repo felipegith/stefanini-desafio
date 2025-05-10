@@ -1,3 +1,5 @@
+using Asp.Versioning;
+using Asp.Versioning.Conventions;
 using Stefanini.Application.Ioc;
 using Stefanini.Infrastructure.Ioc;
 
@@ -9,7 +11,19 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddApiVersioning(options =>
+{
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.ReportApiVersions = true;
+}).AddMvc(opt =>
+{
+    opt.Conventions.Add(new VersionByNamespaceConvention());
+}).AddApiExplorer(opt =>
+{
+    opt.GroupNameFormat = "'v'V";
+    opt.SubstituteApiVersionInUrl = true;
+});
 builder.Services.AddInfrastructure(builder.Configuration)
     .AddAplication();
 var app = builder.Build();

@@ -17,5 +17,11 @@ public static class ClientFixture
     public static string EmptyAddress = string.Empty;
     public static string EmptyNaturality = string.Empty;
     public static string EmptyNacionality = string.Empty;
+
+    public static string SecretMoq = "9f4c1d82a7be431f91d0e6c3f53a2b19";
+    public static string AudienceMoq = "AudienceMoq";
+    public static string IssuerMoq = "IssuerMoq";
+    
+    public static Domain.Entities.Client ClientMoq = Domain.Entities.Client.Create(Name, BirthDate, Cpf, Email, Naturality, Nacionality, Gender, Address);
     
 }

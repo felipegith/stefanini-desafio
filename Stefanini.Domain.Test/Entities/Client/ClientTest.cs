@@ -16,6 +16,7 @@ public class ClientTest
         Assert.Equal(client.Cpf, ClientFixture.Cpf);
         Assert.IsType<Guid>(client.Id);
         Assert.NotEqual(Guid.Empty, client.Id);
+        Assert.Equal(client.CreatedAt.Date, DateTime.Now.Date);
     }
 
     [Fact]
@@ -96,5 +97,47 @@ public class ClientTest
         var validate = Regex.IsMatch(ClientFixture.EmailInvalid, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
         
         Assert.False(validate);
+    }
+
+    [Fact]
+    public void Must_Change_Name()
+    {
+        var name = "Carlos Alberto";
+        var client = new Domain.Entities.Client();
+        client.ChangeName(name);
+        Assert.Equal(client.UpdatedAt.Value.Date, DateTime.Now.Date);
+    }
+    
+    [Fact]
+    public void Must_Change_Gender()
+    {
+        var gender = "Female";
+        var client = new Domain.Entities.Client();
+        client.ChangeGender(gender);
+        Assert.Equal(client.UpdatedAt.Value.Date, DateTime.Now.Date);
+    }
+
+    [Fact]
+    public void Must_Validate_If_BirthDay_IsValid()
+    {
+        var birthDay = ClientFixture.BirthDate;
+        var result = Domain.Entities.Client.ValidateBirthDate(birthDay);
+        Assert.True(result);
+    }
+    
+    [Fact]
+    public void Must_Validate_If_BirthDay_Is_DateTimeMinValue()
+    {
+        var birthDay = DateTime.MinValue;
+        var result = Domain.Entities.Client.ValidateBirthDate(birthDay);
+        Assert.False(result);
+    }
+    
+    [Fact]
+    public void Must_Validate_If_BirthDay_Is_Equal_DateTimeNow()
+    {
+        var birthDay = DateTime.Now;
+        var result = Domain.Entities.Client.ValidateBirthDate(birthDay);
+        Assert.False(result);
     }
 }

@@ -1,6 +1,3 @@
 namespace Stefanini.Application.Models.Client;
 
-public class ChangeClientInputModel
-{
-    
-}
+public record ChangeClientInputModel(Guid Id, string Name, string Gender);

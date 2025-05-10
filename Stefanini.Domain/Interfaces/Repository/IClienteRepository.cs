@@ -8,4 +8,5 @@ public interface IClienteRepository
     bool Remove(Client client);
     Task<Client> FindByIdAsync(Guid id);
     Task<List<Client>> FindAllAsync();
+    Task<Client> FindByCpf(string cpf);
 }
