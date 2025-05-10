@@ -46,5 +46,15 @@ public class UserRepositoryTest
         
         Assert.Equal(UserFixture.Email, user.Email);
     }
+
+    [Fact]
+    public async Task Must_Verify_If_Same_Email_And_Password_Exists()
+    {
+        await Must_Create_An_Client_On_Database();
+        var user = await _userRepository.FindUserAsync(UserFixture.Email, UserFixture.Password);
+        
+        Assert.Equal(UserFixture.Email, user.Email);
+        Assert.Equal(UserFixture.Password, user.Password);
+    }
 }
 

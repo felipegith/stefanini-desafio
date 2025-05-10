@@ -22,7 +22,7 @@ public class UserControllerTest
     [Fact]
     public async Task Signup_Should_Return_Created_When_Success()
     {
-        var input = new SignupInputModel(UserFixture.Email, UserFixture.Password);
+        var input = new UserInputModel(UserFixture.Email, UserFixture.Password);
         var userId = Guid.NewGuid();
 
         _mediatorMock.Send(Arg.Any<SignupCommand>(), Arg.Any<CancellationToken>())
@@ -38,7 +38,7 @@ public class UserControllerTest
     [Fact]
     public async Task Signup_Should_Return_BadRequest_When_Validation_Fails()
     {
-        var input = new SignupInputModel("invalid-email", "");
+        var input = new UserInputModel("invalid-email", "");
 
         var errors = new List<Error>
         {
@@ -57,7 +57,7 @@ public class UserControllerTest
     [Fact]
     public async Task Signup_Should_Return_Conflict_When_Email_Already_Exists()
     {
-        var input = new SignupInputModel(UserFixture.Email, UserFixture.Password);
+        var input = new UserInputModel(UserFixture.Email, UserFixture.Password);
 
         var error = Error.Conflict("User.EmailExists", "Email already exists.");
 
@@ -72,7 +72,7 @@ public class UserControllerTest
     [Fact]
     public async Task Signup_Should_Return_InternalServerError_When_Failure()
     {
-        var input = new SignupInputModel(UserFixture.Email, UserFixture.Password);
+        var input = new UserInputModel(UserFixture.Email, UserFixture.Password);
 
         var error = Error.Failure("User.Unknown", "Internal server error");
 

@@ -28,8 +28,4 @@
       <ProjectReference Include="..\Stefanini.Infrastructure\Stefanini.Infrastructure.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Query\User\" />
-    </ItemGroup>
-
 </Project>

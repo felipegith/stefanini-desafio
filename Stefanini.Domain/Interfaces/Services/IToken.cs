@@ -4,5 +4,5 @@ namespace Stefanini.Domain.Interfaces.Services;
 
 public interface IToken
 {
-    string GenerateToken(Client client);
+    string GenerateToken(User user);
 }

@@ -1,7 +1,9 @@
 using Microsoft.Extensions.Configuration;
 using NSubstitute;
+using Stefanini.Domain.Entities;
 using Stefanini.Domain.Interfaces.Services;
 using Stefanini.Domain.Test.Fixture.Client;
+using Stefanini.Domain.Test.Fixture.User;
 using Stefanini.Infrastructure.Services.Token;
 
 namespace Stefanini.Infrastructure.Test.Service.Token;
@@ -28,8 +30,8 @@ public class TokenJwtTest
     [Fact]
     public void Must_GenerateToken()
     {
-        var client = ClientFixture.ClientMoq;
-        var token = _tokenMoq.GenerateToken(client);
+        var user = User.Create(UserFixture.Email, UserFixture.Password);
+        var token = _tokenMoq.GenerateToken(user);
 
         Assert.False(string.IsNullOrWhiteSpace(token));
         Assert.Contains(".", token);

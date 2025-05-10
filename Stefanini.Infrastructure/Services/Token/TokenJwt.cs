@@ -17,7 +17,7 @@ public class TokenJwt : IToken
     {
         _configuration = configuration;
     }
-    public string GenerateToken(Client client)
+    public string GenerateToken(User user)
     {
         var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:Secret"] ?? string.Empty));
         var issuer = _configuration["JwtSettings:Issuer"];
@@ -27,8 +27,7 @@ public class TokenJwt : IToken
         var claimToken = new[]
         {
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(JwtRegisteredClaimNames.Name, client.Name),
-            new Claim(JwtRegisteredClaimNames.Email, client.BirthDate.ToString()),
+            new Claim(JwtRegisteredClaimNames.Name, user.Email),
             
 
         };

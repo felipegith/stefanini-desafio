@@ -27,4 +27,7 @@ public class UserRepository : IUserRepository
 
     public async Task<Domain.Entities.User> FindByEmailAsync(string email)
         => await _context.Users.FirstOrDefaultAsync(x=>x.Email == email);
+
+    public async Task<Domain.Entities.User> FindUserAsync(string email, string password)
+        => await _context.Users.FirstOrDefaultAsync(x=>x.Email == email && x.Password == password);
 }
