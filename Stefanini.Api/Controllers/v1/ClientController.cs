@@ -1,15 +1,18 @@
-using System.Runtime.InteropServices.JavaScript;
+using Asp.Versioning;
 using ErrorOr;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Stefanini.Application.Command.Client;
 using Stefanini.Application.Models.Client;
 using Stefanini.Application.Query.Client;
 
-namespace Stefanini.Api.Controllers;
+namespace Stefanini.Api.Controllers.v1;
 
 [ApiController]
-[Route("api/v1/[controller]")]
+[Route("api/v{version:apiVersion}/[controller]")]
+[ApiVersion("1.0")]
+[Authorize]
 public class ClientController : ControllerBase
 {
     private readonly IMediator _mediator;
