@@ -8,7 +8,7 @@ Ambiente local:
   Após isso basta acessar http://localhost:5000/swagger
 
 Ambiente de produção:
-A aplicação esta rodando via docker compose em uma EC2 na AWS. O processo de deploy é feito via github actions, basta subir algo na branch master.
+- A aplicação esta rodando via docker compose em uma EC2 na AWS. O processo de deploy é feito via github actions, basta subir algo na branch master.
 
 - Endereço da aplicação: https://backend.financesapi.online/swagger
 
