@@ -29,7 +29,7 @@ public sealed class CreateClientCommandHandler : IRequestHandler<CreateClientCom
         {
             var create = Domain.Entities.Client.Create(request.Model.Name, request.Model.BirthDate, request.Model.Cpf,
                 request.Model.Email, request.Model.Naturality, request.Model.Nacionality, request.Model.Gender,
-                request.Model.Address);
+                request.Model.Address, request.Model.UserId);
             
             _clienteRepository.Create(create);
 

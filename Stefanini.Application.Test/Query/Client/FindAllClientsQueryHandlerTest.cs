@@ -8,7 +8,7 @@ namespace Stefanini.Application.Test.Query.Client;
 
 public class FindAllClientsQueryHandlerTest
 {
-    private static readonly FindAllClientsQuery Query = new FindAllClientsQuery();
+    private static readonly FindAllClientsQuery Query = new FindAllClientsQuery(ClientFixture.UserId);
     private readonly FindAllClientsQueryHandler _query;
     private readonly IClienteRepository _clienteRepositoryMoq;
     private readonly IServiceProvider _serviceProviderMoq;
@@ -25,7 +25,7 @@ public class FindAllClientsQueryHandlerTest
     public async Task Must_Return_All_Clients_On_Database()
     {
         var clients = new List<Domain.Entities.Client> { ClientFixture.ClientMoq };
-        _clienteRepositoryMoq.FindAllAsync().Returns(clients);
+        _clienteRepositoryMoq.FindAllAsync(ClientFixture.UserId).Returns(clients);
         
         var result = await _query.Handle(Query, CancellationToken.None);
         Assert.NotEmpty(result.Value);

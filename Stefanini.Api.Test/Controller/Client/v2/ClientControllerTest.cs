@@ -24,7 +24,7 @@ public class ClientControllerTest
     [Fact]
     public async Task Create_Should_Return_Created_When_Success()
     {
-        var input = new CreateClientCommandInputModel(ClientFixture.Name, ClientFixture.BirthDate, ClientFixture.Cpf, ClientFixture.Email, ClientFixture.Naturality, ClientFixture.Nacionality, ClientFixture.Gender, ClientFixture.Address);
+        var input = new CreateClientCommandInputModel(ClientFixture.Name, ClientFixture.BirthDate, ClientFixture.Cpf, ClientFixture.Email, ClientFixture.Naturality, ClientFixture.Nacionality, ClientFixture.Gender, ClientFixture.Address, ClientFixture.UserId);
 
         _mediatorMock.Send(Arg.Any<CreateClientCommand>(), Arg.Any<CancellationToken>())
             .Returns(ErrorOrFactory.From(Guid.NewGuid()));
@@ -37,7 +37,7 @@ public class ClientControllerTest
     [Fact]
     public async Task Create_Should_Return_BadRequest_When_ValidationFails()
     {
-        var input = new CreateClientCommandInputModel(string.Empty, DateTime.MinValue, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, String.Empty);
+        var input = new CreateClientCommandInputModel(string.Empty, DateTime.MinValue, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, String.Empty, Guid.Empty);
 
         var errors = new List<Error> { Error.Validation("Name", "Invalid name") };
 
@@ -55,7 +55,7 @@ public class ClientControllerTest
         _mediatorMock.Send(Arg.Any<FindAllClientsQuery>(), Arg.Any<CancellationToken>())
             .Returns(ErrorOrFactory.From(new List<ClientResponseDto>()));
 
-        var result = await _controller.Clients(CancellationToken.None);
+        var result = await _controller.Clients(ClientFixture.UserId, CancellationToken.None);
 
         Assert.IsType<OkObjectResult>(result);
     }

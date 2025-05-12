@@ -42,8 +42,8 @@ public class ClientRepository : IClienteRepository
     public async Task<Domain.Entities.Client> FindByIdAsync(Guid id)
         => await _context.Clients.FirstOrDefaultAsync(x => x.Id == id);
 
-    public async Task<List<Domain.Entities.Client>> FindAllAsync()
-        => await _context.Clients.ToListAsync();
+    public async Task<List<Domain.Entities.Client>> FindAllAsync(Guid userId)
+        => await _context.Clients.Where(x=>x.UserId == userId).ToListAsync();
 
     public async Task<Domain.Entities.Client> FindByCpf(string cpf)
         => await _context.Clients.FirstOrDefaultAsync(x => x.Cpf == cpf);

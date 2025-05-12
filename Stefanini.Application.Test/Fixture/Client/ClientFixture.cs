@@ -14,9 +14,9 @@ public static class ClientFixture
     public static string Address = "Rio de Janeiro";
     public static string Naturality = "Rio de Janeiro";
     public static string Nacionality = "Brasileira";
-    
+    public static Guid UserId = Guid.NewGuid();
     public static string NameUpdate = "Carlos Alberto";
-    public static CreateClientCommandInputModel Model = new CreateClientCommandInputModel(Name, BirthDate, Cpf, Email, Naturality, Nacionality, Gender, Address);
+    public static CreateClientCommandInputModel Model = new CreateClientCommandInputModel(Name, BirthDate, Cpf, Email, Naturality, Nacionality, Gender, Address, UserId);
     
-    public static Domain.Entities.Client ClientMoq = Domain.Entities.Client.Create(Name, BirthDate, Cpf, Email, Naturality, Nacionality, Gender, Address);
+    public static Domain.Entities.Client ClientMoq = Domain.Entities.Client.Create(Name, BirthDate, Cpf, Email, Naturality, Nacionality, Gender, Address, UserId);
 }

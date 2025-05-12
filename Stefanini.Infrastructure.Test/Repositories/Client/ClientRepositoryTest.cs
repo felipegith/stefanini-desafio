@@ -24,7 +24,7 @@ public class ClientRepositoryTest
         _context = new DatabaseContext(options);
         _clientRepositoryMoq = new Infrastructure.Repositories.Client.ClientRepository(_context);
         _unitOfWorkMoq = new UnitOfWork.UnitOfWork(_context);
-        _clientMoq = Domain.Entities.Client.Create(ClientFixture.Name, ClientFixture.BirthDate, ClientFixture.Cpf, ClientFixture.Email, ClientFixture.EmptyNaturality, ClientFixture.EmptyNacionality, ClientFixture.EmptyGender, ClientFixture.EmptyAddress);
+        _clientMoq = Domain.Entities.Client.Create(ClientFixture.Name, ClientFixture.BirthDate, ClientFixture.Cpf, ClientFixture.Email, ClientFixture.EmptyNaturality, ClientFixture.EmptyNacionality, ClientFixture.EmptyGender, ClientFixture.EmptyAddress, ClientFixture.UserId);
     }
     [Fact]
     public async Task Must_Create_An_Client_On_Database()
@@ -62,7 +62,8 @@ public class ClientRepositoryTest
             ClientFixture.EmptyNaturality,
             ClientFixture.EmptyNacionality,
             ClientFixture.EmptyGender,
-            ClientFixture.EmptyAddress
+            ClientFixture.EmptyAddress,
+            ClientFixture.UserId
         );
 
         var ex = Assert.Throws<ObjectDisposedException>(() => repository.Create(client));
@@ -90,7 +91,8 @@ public class ClientRepositoryTest
             ClientFixture.EmptyNaturality,
             ClientFixture.EmptyNacionality,
             ClientFixture.EmptyGender,
-            ClientFixture.EmptyAddress
+            ClientFixture.EmptyAddress,
+            ClientFixture.UserId
         );
 
         repository.Create(client);
@@ -129,7 +131,7 @@ public class ClientRepositoryTest
     public async Task Must_Return_All_Clients_On_Database()
     {
         await Must_Create_An_Client_On_Database();
-        var clients = await _clientRepositoryMoq.FindAllAsync();
+        var clients = await _clientRepositoryMoq.FindAllAsync(ClientFixture.UserId);
         
         Assert.NotEmpty(clients);
         Assert.IsType<List<Domain.Entities.Client>>(clients);

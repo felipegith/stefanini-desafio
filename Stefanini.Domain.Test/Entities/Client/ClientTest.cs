@@ -8,7 +8,7 @@ public class ClientTest
     [Fact]
     public void Must_Create_A_Cliente()
     {
-        var client = Domain.Entities.Client.Create(ClientFixture.Name, ClientFixture.BirthDate, ClientFixture.Cpf, ClientFixture.Email, ClientFixture.Naturality, ClientFixture.Nacionality, ClientFixture.Gender, ClientFixture.Address);
+        var client = Domain.Entities.Client.Create(ClientFixture.Name, ClientFixture.BirthDate, ClientFixture.Cpf, ClientFixture.Email, ClientFixture.Naturality, ClientFixture.Nacionality, ClientFixture.Gender, ClientFixture.Address, ClientFixture.UserId);
         
         Assert.NotNull(client);
         Assert.Equal(client.Name, ClientFixture.Name);
@@ -16,6 +16,7 @@ public class ClientTest
         Assert.Equal(client.Cpf, ClientFixture.Cpf);
         Assert.IsType<Guid>(client.Id);
         Assert.NotEqual(Guid.Empty, client.Id);
+        Assert.Equal(client.UserId, ClientFixture.UserId);
         Assert.Equal(client.CreatedAt.Date, DateTime.Now.Date);
     }
 
@@ -31,14 +32,15 @@ public class ClientTest
                 ClientFixture.Naturality,
                 ClientFixture.Nacionality,
                 ClientFixture.Gender,
-                ClientFixture.Address
+                ClientFixture.Address,
+                ClientFixture.UserId
             ));
     }
 
     [Fact]
     public void Must_Create_A_Client_Without_Options_Field()
     {
-        var client = Domain.Entities.Client.Create(ClientFixture.Name, ClientFixture.BirthDate, ClientFixture.Cpf, ClientFixture.Email, ClientFixture.EmptyNaturality, ClientFixture.EmptyNacionality, ClientFixture.EmptyGender, ClientFixture.EmptyAddress);
+        var client = Domain.Entities.Client.Create(ClientFixture.Name, ClientFixture.BirthDate, ClientFixture.Cpf, ClientFixture.Email, ClientFixture.EmptyNaturality, ClientFixture.EmptyNacionality, ClientFixture.EmptyGender, ClientFixture.EmptyAddress, ClientFixture.UserId);
         
         Assert.NotNull(client);
         Assert.Equal(client.Name, ClientFixture.Name);
@@ -64,7 +66,8 @@ public class ClientTest
                 ClientFixture.Naturality,
                 ClientFixture.Nacionality,
                 ClientFixture.Gender,
-                ClientFixture.Address
+                ClientFixture.Address,
+                ClientFixture.UserId
             ));
     }
 

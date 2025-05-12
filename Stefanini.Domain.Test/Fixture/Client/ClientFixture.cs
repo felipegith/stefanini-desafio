@@ -12,6 +12,7 @@ public static class ClientFixture
     public static string Address = "Rio de Janeiro";
     public static string Naturality = "Rio de Janeiro";
     public static string Nacionality = "Brasileira";
+    public static Guid UserId = Guid.NewGuid();
     
     public static string EmptyGender = string.Empty;
     public static string EmptyAddress = string.Empty;
@@ -22,6 +23,6 @@ public static class ClientFixture
     public static string AudienceMoq = "AudienceMoq";
     public static string IssuerMoq = "IssuerMoq";
     
-    public static Domain.Entities.Client ClientMoq = Domain.Entities.Client.Create(Name, BirthDate, Cpf, Email, Naturality, Nacionality, Gender, Address);
+    public static Domain.Entities.Client ClientMoq = Domain.Entities.Client.Create(Name, BirthDate, Cpf, Email, Naturality, Nacionality, Gender, Address, UserId);
     
 }

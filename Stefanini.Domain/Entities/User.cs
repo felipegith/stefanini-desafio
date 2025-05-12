@@ -6,6 +6,7 @@ public class User : Entity
 {
     public string Email { get; private set; }
     public string Password { get; private set; }
+    public List<Client> Clients { get; private set; }
 
     public static User Create(string email, string password)
     {

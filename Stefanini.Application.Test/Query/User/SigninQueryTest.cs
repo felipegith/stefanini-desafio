@@ -45,6 +45,6 @@ public class SigninQueryTest
         var result = await _query.Handle(Query,  CancellationToken.None);
         
         Assert.NotNull(result.Value);
-        Assert.Contains(".", result.Value);
+        Assert.Contains(".", result.Value.Token);
     }
 }

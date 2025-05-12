@@ -14,12 +14,13 @@ public class Client : Entity
     public string? Nacionality { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
+    public Guid UserId { get; init; }
 
     public Client()
     {
         
     }
-    public static Client Create(string name, DateTime birthDate, string cpf, string? email, string ? naturality, string? nacionality, string? gender, string? address)
+    public static Client Create(string name, DateTime birthDate, string cpf, string? email, string ? naturality, string? nacionality, string? gender, string? address, Guid userId)
     {
         var client = new Client
         {
@@ -31,7 +32,8 @@ public class Client : Entity
             Nacionality = nacionality,
             Address = address,
             Gender = gender,
-            CreatedAt = DateTime.Now
+            CreatedAt = DateTime.Now,
+            UserId = userId
         };
         return client;
     }

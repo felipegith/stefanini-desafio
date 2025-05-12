@@ -50,10 +50,10 @@ public class ClientController : ControllerBase
     /// Endpoint responsável por buscar todos os clientes cadastrados.
     /// </summary>
     /// <returns>Retorna o resultado da operação</returns>
-    [HttpGet]
-    public async Task<IActionResult> Clients(CancellationToken cancellationToken)
+    [HttpGet("get-all/{userId}")]
+    public async Task<IActionResult> Clients(Guid userId, CancellationToken cancellationToken)
     {
-        var query = new FindAllClientsQuery();
+        var query = new FindAllClientsQuery(userId);
         
         var result = await _mediator.Send(query, cancellationToken);
         return result.Match<IActionResult>(
@@ -74,7 +74,7 @@ public class ClientController : ControllerBase
     /// Endpoint responsável por buscar um cliente pelo seu identificador
     /// </summary>
     /// <returns>Retorna o resultado da operação</returns>
-    [HttpGet("{id}")]
+    [HttpGet("get-by-id/{id}")]
     public async Task<IActionResult> Client(Guid id, CancellationToken cancellationToken)
     {
         var query = new FindClientQuery(id);

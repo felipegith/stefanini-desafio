@@ -7,6 +7,6 @@ public interface IClienteRepository
     void Create(Client cliente);
     bool Remove(Client client);
     Task<Client> FindByIdAsync(Guid id);
-    Task<List<Client>> FindAllAsync();
+    Task<List<Client>> FindAllAsync(Guid userId);
     Task<Client> FindByCpf(string cpf);
 }

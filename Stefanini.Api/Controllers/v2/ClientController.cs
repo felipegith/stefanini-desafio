@@ -27,7 +27,7 @@ public class ClientController : ControllerBase
     public async Task<IActionResult> Create([FromBody] CreateClientCommandInputModel model, CancellationToken cancellationToken)
     {
         if(string.IsNullOrEmpty(model.Address))
-           return BadRequest("Address cannot be null or empty");
+           return BadRequest(Error.Validation("Model.Address"));
         
         var command = new CreateClientCommand(model);
         
@@ -51,10 +51,10 @@ public class ClientController : ControllerBase
     /// Endpoint responsável por buscar todos os clientes cadastrados
     /// </summary>
     /// <returns>Retorna o resultado da operação</returns>
-    [HttpGet]
-    public async Task<IActionResult> Clients(CancellationToken cancellationToken)
+    [HttpGet("{userId}")]
+    public async Task<IActionResult> Clients(Guid userId, CancellationToken cancellationToken)
     {
-        var query = new FindAllClientsQuery();
+        var query = new FindAllClientsQuery(userId);
         
         var result = await _mediator.Send(query, cancellationToken);
         return result.Match<IActionResult>(
