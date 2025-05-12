@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Asp.Versioning.Conventions;
+using Microsoft.AspNetCore.HttpOverrides;
 using Stefanini.Application.Ioc;
 using Stefanini.Infrastructure.Ioc;
 
@@ -65,7 +66,10 @@ var app = builder.Build();
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
         options.SwaggerEndpoint("/swagger/v2/swagger.json", "API v2");
     });
-
+    app.UseForwardedHeaders(new ForwardedHeadersOptions
+    {
+        ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+    });
 
 app.UseHttpsRedirection();
 app.UseCors("corsconfig");
