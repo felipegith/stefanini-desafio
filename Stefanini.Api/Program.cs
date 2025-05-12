@@ -16,7 +16,7 @@ builder.Services.AddSwaggerGen(options =>
     {
         Title = "API Stefanini",
         Version = "v1",
-        Description = "Documentação da versão 1 API Stefanini",
+        Description = "Documentação da versão 1 API Stefanini.",
     });
     
     options.SwaggerDoc("v2", new Microsoft.OpenApi.Models.OpenApiInfo
