@@ -25,6 +25,14 @@ public class UserTest
     }
     
     [Fact]
+    public void Must_Have_Empty_Client_List_When_Created()
+    {
+        var user = Domain.Entities.User.Create(UserFixture.Email, UserFixture.Password);
+        Assert.NotNull(user.Clients);
+        Assert.Empty(user.Clients);
+    }
+    
+    [Fact]
     public void Must_Return_False_When_Email_Is_Invalid()
     {
         var validate = Regex.IsMatch(UserFixture.EmailInvalid, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");

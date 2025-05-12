@@ -13,7 +13,8 @@ public class User : Entity
         var user = new User
         {
             Email = !string.IsNullOrEmpty(email) ? ValidateEmail(email) ? email : throw new ArgumentException(): string.Empty,
-            Password = password
+            Password = password,
+            Clients = new List<Client>()
         };
 
         return user;
