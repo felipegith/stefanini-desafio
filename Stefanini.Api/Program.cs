@@ -50,7 +50,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("corsconfig", policy =>
     {
-        policy.WithOrigins("http://localhost:5173", "http://localhost:5175,", "https://stefanini-client-ljqv.vercel.app");
+        policy.WithOrigins("http://localhost:5173", "http://localhost:5175", "https://stefanini-client-ljqv.vercel.app");
         policy.AllowAnyHeader();
         policy.AllowAnyMethod();
         policy.AllowCredentials();
@@ -68,9 +68,9 @@ var app = builder.Build();
 
 
 app.UseHttpsRedirection();
-
+app.UseCors("corsconfig");
 app.UseAuthorization();
 
 app.MapControllers();
-app.UseCors("corsconfig");
+
 app.Run();
