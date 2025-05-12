@@ -47,7 +47,7 @@ public class ClientController : ControllerBase
         );
     }
     /// <summary>
-    /// Endpoint responsável por buscar todos os clientes cadastrados
+    /// Endpoint responsável por buscar todos os clientes cadastrados.
     /// </summary>
     /// <returns>Retorna o resultado da operação</returns>
     [HttpGet]
