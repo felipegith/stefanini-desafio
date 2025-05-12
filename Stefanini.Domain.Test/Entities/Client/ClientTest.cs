@@ -118,6 +118,42 @@ public class ClientTest
     }
 
     [Fact]
+    public void Must_Change_Naturality()
+    {
+        var naturality = "São Paulo";
+        var client = new Domain.Entities.Client();
+        client.ChangeNaturality(naturality);
+        Assert.Equal(client.UpdatedAt.Value.Date, DateTime.Now.Date);
+    }
+    
+    [Fact]
+    public void Must_Change_Nacionality()
+    {
+        var nacionality = "São Paulo";
+        var client = new Domain.Entities.Client();
+        client.ChangeNacionality(nacionality);
+        Assert.Equal(client.UpdatedAt.Value.Date, DateTime.Now.Date);
+    }
+    
+    [Fact]
+    public void Must_Change_Email()
+    {
+        var email = ClientFixture.Email;
+        var client = new Domain.Entities.Client();
+        client.ChangeEmail(email);
+        Assert.Equal(client.UpdatedAt.Value.Date, DateTime.Now.Date);
+    }
+    
+    [Fact]
+    public void Must_Change_Address()
+    {
+        var address = "Madureira";
+        var client = new Domain.Entities.Client();
+        client.ChangeAddress(address);
+        Assert.Equal(client.UpdatedAt.Value.Date, DateTime.Now.Date);
+    }
+
+    [Fact]
     public void Must_Validate_If_BirthDay_IsValid()
     {
         var birthDay = ClientFixture.BirthDate;

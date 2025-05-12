@@ -10,8 +10,8 @@ public class CreateClientCommandValidation : AbstractValidator<CreateClientComma
     {
         RuleFor(x=>x.Model.Name).NotEmpty();
         RuleFor(x => x.Model.Cpf).NotEmpty();
-        RuleFor(x=>x.Model.Birthday).LessThanOrEqualTo(DateTime.Today.AddYears(-18)).
-            WithMessage("You must have age greater than 18.");
+        RuleFor(x=>x.Model.BirthDate).LessThanOrEqualTo(DateTime.Today.AddYears(-18)).
+            WithMessage("You must have age greater than 18.").NotEmpty().WithMessage("Birthday is required.");
         
     }
 }

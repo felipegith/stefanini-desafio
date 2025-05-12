@@ -56,5 +56,14 @@ public class UserRepositoryTest
         Assert.Equal(UserFixture.Email, user.Email);
         Assert.Equal(UserFixture.Password, user.Password);
     }
+    
+    [Fact]
+    public async Task Must_Throw_Exception_When_Trying_To_Create_Invalid_User()
+    {
+        var exception = Assert.Throws<NullReferenceException>(() => _userRepository.Create(null!));
+    
+        Assert.Contains("Object reference not set to", exception.Message);
+    }
+
 }
 

@@ -8,7 +8,7 @@ namespace Stefanini.Application.Test.Command.Client;
 
 public class ChangeClientCommandHandlerTest
 {
-    private static readonly ChangeClientCommand Command = new ChangeClientCommand(Guid.NewGuid(), ClientFixture.NameUpdate, String.Empty);
+    private static readonly ChangeClientCommand Command = new ChangeClientCommand(Guid.NewGuid(), ClientFixture.NameUpdate, String.Empty, ClientFixture.Nacionality, ClientFixture.Naturality, ClientFixture.Address, ClientFixture.Email);
     private readonly ChangeClientCommandHandler _handler;
     private readonly IClienteRepository _clienteRepositoryMoq;
     private readonly IUnitOfWork _unitOfWorkMoq;
@@ -39,7 +39,7 @@ public class ChangeClientCommandHandlerTest
     public async Task Must_Skip_Change_When_Name_IsEmpty()
     {
         _clienteRepositoryMoq.FindByIdAsync(Arg.Any<Guid>()).Returns(ClientFixture.ClientMoq);
-        var command = new ChangeClientCommand(Guid.NewGuid(), string.Empty, ClientFixture.Gender);
+        var command = new ChangeClientCommand(Guid.NewGuid(), string.Empty, ClientFixture.Gender, ClientFixture.Nacionality, ClientFixture.Naturality, ClientFixture.Address, ClientFixture.Email);
         var result = await _handler.Handle(command, CancellationToken.None);
         
         Assert.True(result.Value);
@@ -49,7 +49,7 @@ public class ChangeClientCommandHandlerTest
     public async Task Must_Skip_Change_When_Gender_IsEmpty()
     {
         _clienteRepositoryMoq.FindByIdAsync(Arg.Any<Guid>()).Returns(ClientFixture.ClientMoq);
-        var command = new ChangeClientCommand(Guid.NewGuid(), ClientFixture.Name, string.Empty);
+        var command = new ChangeClientCommand(Guid.NewGuid(), ClientFixture.Name, string.Empty, ClientFixture.Nacionality, ClientFixture.Naturality, ClientFixture.Address, ClientFixture.Email);
         var result = await _handler.Handle(command, CancellationToken.None);
         
         Assert.True(result.Value);

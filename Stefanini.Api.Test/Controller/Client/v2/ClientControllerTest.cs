@@ -85,7 +85,7 @@ public class ClientControllerTest
     [Fact]
     public async Task Update_Should_Return_NoContent_When_Success()
     {
-        var input = new ChangeClientInputModel(Guid.NewGuid(), "Carlos Alberto", "M");
+        var input = new ChangeClientInputModel(Guid.NewGuid(), "Carlos Alberto", ClientFixture.Gender, ClientFixture.Nacionality,  ClientFixture.Naturality, ClientFixture.Address, ClientFixture.Email);
         
         _mediatorMock.Send(Arg.Any<ChangeClientCommand>(), Arg.Any<CancellationToken>())
             .Returns(ErrorOrFactory.From(true));

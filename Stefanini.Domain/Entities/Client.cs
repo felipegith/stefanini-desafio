@@ -53,6 +53,30 @@ public class Client : Entity
         Gender = gender;
         UpdatedAt = DateTime.Now;
     }
+    
+    public void ChangeEmail(string email)
+    {
+        Email = ValidateEmail(email) ? email : throw new ArgumentException();
+        UpdatedAt = DateTime.Now;
+    }
+    
+    public void ChangeAddress(string address)
+    {
+        Address = address;
+        UpdatedAt = DateTime.Now;
+    }
+    
+    public void ChangeNaturality(string naturality)
+    {
+        Naturality = naturality;
+        UpdatedAt = DateTime.Now;
+    }
+    
+    public void ChangeNacionality(string nacionality)
+    {
+        Nacionality = nacionality;
+        UpdatedAt = DateTime.Now;
+    }
 
     public static bool ValidateBirthDate(DateTime birthDate)
     {

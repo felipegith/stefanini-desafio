@@ -20,7 +20,7 @@ public class ClientController : ControllerBase
        _mediator = mediator;
     }
     /// <summary>
-    /// Endpoint responsável por cadastrar um cliente   
+    /// Endpoint responsável por cadastrar um cliente
     /// </summary>
     /// <returns>Retorna o resultado da operação</returns>
     [HttpPost]
@@ -47,7 +47,10 @@ public class ClientController : ControllerBase
             }
         );
     }
-
+    /// <summary>
+    /// Endpoint responsável por buscar todos os clientes cadastrados
+    /// </summary>
+    /// <returns>Retorna o resultado da operação</returns>
     [HttpGet]
     public async Task<IActionResult> Clients(CancellationToken cancellationToken)
     {
@@ -69,6 +72,10 @@ public class ClientController : ControllerBase
         );
     }
 
+    /// <summary>
+    /// Endpoint responsável por buscar um cliente pelo seu identificador
+    /// </summary>
+    /// <returns>Retorna o resultado da operação</returns>
     [HttpGet("{id}")]
     public async Task<IActionResult> Client(Guid id, CancellationToken cancellationToken)
     {
@@ -88,7 +95,10 @@ public class ClientController : ControllerBase
             }
         );
     }
-
+    /// <summary>
+    /// Endpoint responsável por remover um cliente
+    /// </summary>
+    /// <returns>Retorna o resultado da operação</returns>
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
     {
@@ -108,11 +118,14 @@ public class ClientController : ControllerBase
             }
         );
     }
-
+    /// <summary>
+    /// Endpoint responsável por cadastrar atualizar os dados do clinte
+    /// </summary>
+    /// <returns>Retorna o resultado da operação</returns>
     [HttpPatch]
     public async Task<IActionResult> Update([FromBody] ChangeClientInputModel model,  CancellationToken cancellationToken)
     {
-        var command = new ChangeClientCommand(model.Id,model.Name, model.Gender);
+        var command = new ChangeClientCommand(model.Id,model.Name, model.Gender, model.Nacionality, model.Naturality, model.Address, model.Email);
         var result = await _mediator.Send(command, cancellationToken);
         return result.Match<IActionResult>(
             client => NoContent(),

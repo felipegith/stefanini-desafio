@@ -26,6 +26,6 @@ public sealed class FindClientQueryHandler : IRequestHandler<FindClientQuery, Er
             return Error.NotFound(
                 code: "Client not found", description: "Client not found");
         
-        return new ClientResponseDto(client.Name, client.Cpf, client.BirthDate, client.Email, client.Naturality, client.Nacionality, client.Gender, client.Address, client.CreatedAt);
+        return new ClientResponseDto(client.Id, client.Name, client.Cpf, client.BirthDate, client.Email, client.Naturality, client.Nacionality, client.Gender, client.Address, client.CreatedAt);
     }
 }

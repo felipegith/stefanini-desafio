@@ -21,7 +21,7 @@ public sealed class FindAllClientsQueryHandler : IRequestHandler<FindAllClientsQ
     {
         var clients = await _clienteRepository.FindAllAsync();
         
-        var response = clients.Select(x=> new ClientResponseDto(x.Name, x.Cpf, x.BirthDate, x.Email, x.Naturality, x.Nacionality, x.Gender, x.Address, x.CreatedAt)).ToList();
+        var response = clients.Select(x=> new ClientResponseDto(x.Id, x.Name, x.Cpf, x.BirthDate, x.Email, x.Naturality, x.Nacionality, x.Gender, x.Address, x.CreatedAt)).ToList();
 
         return response;
 

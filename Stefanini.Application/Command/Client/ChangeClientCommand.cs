@@ -6,7 +6,7 @@ using Stefanini.Domain.Interfaces.Repository;
 
 namespace Stefanini.Application.Command.Client;
 
-public record ChangeClientCommand(Guid Id, string Name, string Gender) : IRequest<ErrorOr<bool>>;
+public record ChangeClientCommand(Guid Id, string Name, string Gender, string Nationality, string Naturality, string Address, string Email) : IRequest<ErrorOr<bool>>;
 
 
 public sealed class ChangeClientCommandHandler : IRequestHandler<ChangeClientCommand, ErrorOr<bool>>
@@ -31,6 +31,18 @@ public sealed class ChangeClientCommandHandler : IRequestHandler<ChangeClientCom
         
         if(!string.IsNullOrEmpty(request.Gender))
             client.ChangeGender(request.Gender);
+        
+        if(!string.IsNullOrEmpty(request.Email))
+            client.ChangeEmail(request.Email);
+        
+        if(!string.IsNullOrEmpty(request.Naturality))
+            client.ChangeNaturality(request.Naturality);
+        
+        if(!string.IsNullOrEmpty(request.Nationality))
+            client.ChangeNacionality(request.Nationality);
+        
+        if(!string.IsNullOrEmpty(request.Address))
+            client.ChangeAddress(request.Address);
         
         await _unitOfWork.Commit();
 

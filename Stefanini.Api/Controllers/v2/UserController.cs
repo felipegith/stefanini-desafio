@@ -6,11 +6,11 @@ using Stefanini.Application.Command.User;
 using Stefanini.Application.Models.User;
 using Stefanini.Application.Query.User;
 
-namespace Stefanini.Api.Controllers.v1;
+namespace Stefanini.Api.Controllers.v2;
 
 [ApiController]
 [Route("api/v{version:apiVersion}/[controller]")]
-[ApiVersion("1.0")]
+[ApiVersion("2.0")]
 public class UserController : ControllerBase
 {
     public readonly IMediator _mediator;
