@@ -47,4 +47,7 @@ public class ClientRepository : IClienteRepository
 
     public async Task<Domain.Entities.Client> FindByCpf(string cpf)
         => await _context.Clients.FirstOrDefaultAsync(x => x.Cpf == cpf);
+
+    public async Task<Domain.Entities.Client> FindByEmail(string email)
+        => await _context.Clients.FirstOrDefaultAsync(x => x.Email == email);
 }

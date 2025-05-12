@@ -12,7 +12,7 @@ namespace Stefanini.Api.Controllers.v1;
 [ApiController]
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiVersion("1.0")]
-[Authorize]
+
 public class ClientController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -41,6 +41,7 @@ public class ClientController : ControllerBase
                 {
                     ErrorType.Failure => StatusCode(500, error.Description),
                     ErrorType.NotFound => NotFound(error),
+                    ErrorType.Conflict => Conflict(error),
                     ErrorType.Validation => BadRequest(error),
                 };
             }
@@ -130,12 +131,17 @@ public class ClientController : ControllerBase
             client => NoContent(),
             errors =>
             {
+                if (errors.Count > 1)
+                    return Conflict(errors);
+                
                 var error = errors.FirstOrDefault();
                 return error.Type switch
                 {
                     ErrorType.Failure => StatusCode(500, error.Description),
                     ErrorType.NotFound => NotFound(error),
+                    ErrorType.Conflict => Conflict(error),
                     ErrorType.Validation => BadRequest(error),
+                    _ => BadRequest(error)
                 };
             }
         );

@@ -9,4 +9,5 @@ public interface IClienteRepository
     Task<Client> FindByIdAsync(Guid id);
     Task<List<Client>> FindAllAsync(Guid userId);
     Task<Client> FindByCpf(string cpf);
+    Task<Client> FindByEmail(string email);
 }

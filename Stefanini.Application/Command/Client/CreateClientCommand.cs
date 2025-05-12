@@ -25,6 +25,10 @@ public sealed class CreateClientCommandHandler : IRequestHandler<CreateClientCom
         if (cpfExists != null)
             return Error.Conflict(code: "Cpf already exists");
         
+        var emailExists = await _clienteRepository.FindByEmail(request.Model.Email);
+        if(emailExists != null)
+            return Error.Conflict(code: "Email already exists");
+        
         try
         {
             var create = Domain.Entities.Client.Create(request.Model.Name, request.Model.BirthDate, request.Model.Cpf,

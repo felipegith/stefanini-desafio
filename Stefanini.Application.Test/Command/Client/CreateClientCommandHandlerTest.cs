@@ -30,6 +30,7 @@ public class CreateClientCommandHandlerTest
     {
         _unitOfWorkMoq.Commit().Returns(true);
         _clienteRepositoryMoq.FindByCpf(Arg.Any<string>()).ReturnsNull();
+        _clienteRepositoryMoq.FindByEmail(Arg.Any<string>()).ReturnsNull();
         var result = await _handler.Handle(Command, CancellationToken.None);
         _clienteRepositoryMoq.Received(1).Create(Arg.Any<Domain.Entities.Client>());
         Assert.NotEqual(result.Value, Guid.Empty);

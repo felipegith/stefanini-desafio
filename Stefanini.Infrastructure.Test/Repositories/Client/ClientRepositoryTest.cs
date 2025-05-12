@@ -126,6 +126,16 @@ public class ClientRepositoryTest
         Assert.NotNull(find);
         Assert.Equal(_clientMoq.Id, find.Id);
     }
+    
+    [Fact]
+    public async Task Must_Find_Client_By_Email()
+    {
+        await Must_Create_An_Client_On_Database();
+        var find = await _clientRepositoryMoq.FindByEmail(_clientMoq.Email);
+        
+        Assert.NotNull(find);
+        Assert.Equal(_clientMoq.Email, find.Email);
+    }
 
     [Fact]
     public async Task Must_Return_All_Clients_On_Database()

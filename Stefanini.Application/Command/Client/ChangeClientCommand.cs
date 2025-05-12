@@ -21,6 +21,7 @@ public sealed class ChangeClientCommandHandler : IRequestHandler<ChangeClientCom
     }
     public async Task<ErrorOr<bool>> Handle(ChangeClientCommand request, CancellationToken cancellationToken)
     {
+        var errors = new List<Error>();
         var client = await _clienteRepository.FindByIdAsync(request.Id);
         
         if (client == null)
@@ -31,9 +32,20 @@ public sealed class ChangeClientCommandHandler : IRequestHandler<ChangeClientCom
         
         if(!string.IsNullOrEmpty(request.Gender))
             client.ChangeGender(request.Gender);
-        
-        if(!string.IsNullOrEmpty(request.Email))
-            client.ChangeEmail(request.Email);
+
+        if (!string.IsNullOrEmpty(request.Email))
+        {
+            var existsEmail = await _clienteRepository.FindByEmail(request.Email);
+            if (existsEmail != null && existsEmail.Id != request.Id)
+            {
+                errors.Add(Error.Conflict(code: "Client.EmailExists", description: "Email already exists"));
+            }
+            else
+            {
+                client.ChangeEmail(request.Email);
+            }
+        }
+            
         
         if(!string.IsNullOrEmpty(request.Naturality))
             client.ChangeNaturality(request.Naturality);
@@ -45,7 +57,8 @@ public sealed class ChangeClientCommandHandler : IRequestHandler<ChangeClientCom
             client.ChangeAddress(request.Address);
         
         await _unitOfWork.Commit();
-
+        if (errors.Any())
+            return errors;
         return true;
     }
 }
